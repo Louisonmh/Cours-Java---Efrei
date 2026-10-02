@@ -18,12 +18,14 @@ public class HelloEfrei {
 //        System.out.println("Langage :" + langagePrefere);
 //        System.out.println("Salaire :" + Salaire);
 
-        ArrayList<Programmeur> listeProgrammeurs = new ArrayList<>();
-        Programmeur Alice = new Programmeur("Alice", "Martin", "Java", 40000);
-        Programmeur Alex = new Programmeur("Alex", "Dupont", "Java", 40000);
+        ArrayList<Collaborateur> listeCollaborateur = new ArrayList<>();
+        Adresse addAlice = new Adresse("avenue de l'aurore",44300,"Nantes","France");
+        Adresse addAlex = new Adresse("rue du Jura", 75013, "Paris","France");
+        Collaborateur Alice = new Programmeur("Alice", "Martin", "Java", 4000.0,addAlice);
+        Collaborateur Alex = new Programmeur("Alex", "Dupont", "Java", 4000.0,addAlex);
 
-        listeProgrammeurs.add(Alice);
-        listeProgrammeurs.add(Alex);
+        listeCollaborateur.add(Alice);
+        listeCollaborateur.add(Alex);
 
         int cpt = 4;
         Scanner scanners = new Scanner(System.in);
@@ -38,22 +40,57 @@ public class HelloEfrei {
             System.out.print("Entrez votre saisie : ");
             cpt = scanners.nextInt();
             if(cpt==1){
-                Alice.afficherProgrammeur();
+                Alice.afficherCollaborateur();
             }
             if(cpt==2){
-                Alex.afficherProgrammeur();
+                Alex.afficherCollaborateur();
             }
             if(cpt==3){
-                Programmeur nv = new  Programmeur();
-                listeProgrammeurs.add(nv);
+                    Scanner scanner = new Scanner(System.in);
+
+                    System.out.print("Entrez votre prénom : ");
+                    String prenom = scanner.nextLine();
+                    System.out.print("Entrez votre nom : ");
+                    String nom = scanner.nextLine();
+                    System.out.print("Entrez votre langage prefere : ");
+                    String langagePrefere = scanner.nextLine();
+                    System.out.print("Entrez votre rue : ");
+                    String rue = scanner.nextLine();
+                    System.out.print("Entrez votre code postal : ");
+                    Integer code_postal = scanner.nextInt();
+                    System.out.print("Entrez votre ville : ");
+                    String ville = scanner.nextLine();
+                    System.out.print("Entrez votre pays : ");
+                    String pays = scanner.nextLine();
+                    while (true) {
+                        System.out.print("Entrez votre salaire : ");
+                        if (scanner.hasNextDouble()) {
+                            double salaire = scanner.nextDouble();
+                            scanner.nextLine();
+                            Adresse addnv = new Adresse(rue,code_postal,ville,pays);
+                            Programmeur nv = new  Programmeur(prenom,nom,langagePrefere,salaire,addnv);
+                            listeCollaborateur.add(nv);
+                            if (salaire >= 0) {
+                                break;
+                            }
+
+                            System.out.println("Le salaire ne peut pas être négatif.");
+                        } else {
+                            System.out.println("Veuillez saisir un nombre.");
+                            scanner.nextLine();
+                        }
+                    }
             }
             else{
                 System.out.println("Erreur de saisie");
             }
         }
+        for( int i=0;i<listeCollaborateur.size();i++){
+            listeCollaborateur.get(i).travailler();
+        }
+
         scanners.close();
-        Alice.afficherProgrammeur();
         Alice.augmenterSalaire(5);
-        Alice.afficherProgrammeur();
+        Alice.afficherCollaborateur();
     }
 }
