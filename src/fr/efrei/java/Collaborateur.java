@@ -2,7 +2,9 @@ package fr.efrei.java;
 
 import java.util.Scanner;
 
-public class Collaborateur implements Formateur {
+public abstract class Collaborateur implements Formateur {
+    private static int compteurid = 0;
+    private final String id;
     private final String prenom;
     private final String nom;
     private String langagePrefere;
@@ -10,11 +12,14 @@ public class Collaborateur implements Formateur {
     private Adresse adresse;
 
     public Collaborateur(String prenom, String nom, String langagePrefere, double salaire, Adresse adresse) {
+        this.id = "C"+compteurid;
         this.prenom = prenom;
         this.nom = nom;
         this.langagePrefere = langagePrefere;
         this.salaire = salaire;
         this.adresse = adresse;
+
+        compteurid=compteurid+1;
     }
 
     public void setSalaire(double salaire) {
@@ -45,12 +50,14 @@ public class Collaborateur implements Formateur {
     public String getNom() {return nom;}
     public Double getSalaire() {return salaire;}
     public String getLangagePrefere() {return langagePrefere;}
+    public String getId() {return id;}
 
     public void afficherCollaborateur(){
-        System.out.println("Prénom : "+this.prenom);
-        System.out.println("Nom : "+this.nom);
-        System.out.println("Langage : "+this.langagePrefere);
-        System.out.println("Salaire : "+this.salaire);
+        System.out.print("ID : "+id);
+        System.out.print(" Prénom : "+this.prenom);
+        System.out.print(" Nom : "+this.nom);
+        System.out.print(" Langage : "+this.langagePrefere);
+        System.out.println(" Salaire : "+this.salaire);
     }
 
     public void augmenterSalaire(double pourcentage) {
@@ -61,9 +68,7 @@ public class Collaborateur implements Formateur {
         }
     }
 
-    public void travailler(){
-        System.out.println("Je travaille");
-    }
+    public abstract void travailler();
 
     @Override
     public void former() {

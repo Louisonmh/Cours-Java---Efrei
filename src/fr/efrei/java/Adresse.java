@@ -36,4 +36,10 @@ public class Adresse {
     public Integer getCode_postal() {return code_postal;}
     public String getVille() {return ville;}
     public String getPays() {return pays;}
+
+    public void afficher() {
+        System.out.println(rue);
+        System.out.println(code_postal + " " + ville);
+        System.out.println(pays);
+    }
 }
